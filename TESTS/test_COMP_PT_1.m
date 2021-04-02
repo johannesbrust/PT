@@ -1,0 +1,59 @@
+%-------------------- test_COMP_PT_1 -------------------------------------%
+%
+% Script to test Combinatorial Orthogonal Matching Pursuit (COMP) for
+% Pooling Tests
+%
+% The test matrix is taken from Wikipedia
+% https://en.wikipedia.org/wiki/Group_testing
+% #Combinatorial_orthogonal_matching_pursuit_(COMP)
+% 
+% This is an example for which the algorithm identifies false positives
+%-------------------------------------------------------------------------%
+% 03/17/21, J.B., Initial version
+
+clc;
+clear;
+
+% Adding paths to Algorithm and test matrix
+addpath('../ALGS');
+%addpath('../../EXTERNAL/tapestry/matlab');
+
+% Initialize RNG
+rng(0);
+
+% Generate matrix M
+M = [0 1 1 0 0 0 0 0;
+    1 0 0 0 0 0 0 0;
+    0 0 0 1 0 1 0 1;
+    0 0 1 0 0 0 0 0;
+    0 0 0 1 0 0 0 0;
+    0 1 0 0 0 0 1 1;
+    1 0 0 1 0 0 0 0];
+
+% Setup problem for M (and convert to binary)
+M = (M>0); %.*ones(t2,n2);
+[t,n] = size(M);
+% Set a "prevalence" p and generate a x
+%p2 = 0.02;
+%x2 = (p2 > rand(n2,1));% .*ones(n2,1);
+% y2 = (sum(M2(:,x2),2)>0);
+% Example x (with two positive cases)
+x2 = zeros(n,1,'int8');
+x2(2,1) = 1;
+x2(6,1) = 1;
+x2(7,1) = 1;
+
+y2 = (sum(M(:,(x2==1)),2)>0); %.*ones(t2,1);
+
+% Call to algorithm
+pars.print = 1;
+pars.d = sum(x2);
+
+[x2_c,out2] = COMP_PT(M,y2,pars);
+
+% Call to DD algorithm
+[x2_D,out2_D] = DD_PT(M,y2,pars);
+
+% Call to SCOPM algorithm
+[x2_S,out2_S] = SCOMP_PT(M,y2,pars);
+
