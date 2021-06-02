@@ -3,7 +3,7 @@
 
 MATLAB implementations of algorithms from the article
 
-"COVID-19 Pooling Matrix Designs", J.J. Brust (2021), IMAGE 66
+"COVID-19 Pooling Matrix Designs", J.J. Brust (2021), IMAGE (TBD)
 
 Content:
   * ALGS/
