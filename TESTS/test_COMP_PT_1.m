@@ -16,7 +16,7 @@ clear;
 
 % Adding paths to Algorithm and test matrix
 addpath('../ALGS');
-%addpath('../../EXTERNAL/tapestry/matlab');
+addpath('../AUXILIARY');
 
 % Initialize RNG
 rng(0);
@@ -31,19 +31,16 @@ M = [0 1 1 0 0 0 0 0;
     1 0 0 1 0 0 0 0];
 
 % Setup problem for M (and convert to binary)
-M = (M>0); %.*ones(t2,n2);
+M = (M>0);
 [t,n] = size(M);
-% Set a "prevalence" p and generate a x
-%p2 = 0.02;
-%x2 = (p2 > rand(n2,1));% .*ones(n2,1);
-% y2 = (sum(M2(:,x2),2)>0);
-% Example x (with two positive cases)
+
+% Example x (with three positive cases)
 x2 = zeros(n,1,'int8');
 x2(2,1) = 1;
 x2(6,1) = 1;
 x2(7,1) = 1;
 
-y2 = (sum(M(:,(x2==1)),2)>0); %.*ones(t2,1);
+y2 = (sum(M(:,(x2==1)),2)>0);
 
 % Call to algorithm
 pars.print = 1;

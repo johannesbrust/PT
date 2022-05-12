@@ -2,13 +2,15 @@ function [ M, out ] = SDD_PT( m, k, pars )
 %SDD_PT "Shifted Diagonal Design" (for Pooling Tests)
 %   
 % Algorithm for generating the pooling matrix M, in which
-% each of the 1:m individual samples 
+% each of the 1:m*m individual samples 
 %
-%   * is in exactly k tests
+%   * is in k tests
 %   * each test contains exactly m different samples
-%   * each pair of samples appears exactly once.
+%   * each pair of samples appears at most once.
 %
-% The matrix is k-1 disjunct and can exactly specify up to k 
+% NOTE: The pool size m must be a prime number
+%
+% The matrix is k-1 disjunct and can exactly specify up to k-1 
 % defectives in a pooling algorithm.
 %
 % Pooling test problem:
@@ -18,9 +20,10 @@ function [ M, out ] = SDD_PT( m, k, pars )
 % where [t,n]=size(M), t<n, M is a binary matrix with tests (rows)
 % and samples (sometimes called items) in its columns.
 %
+%
 % INPUTS:
 % m: Pool size
-% k: Multiplicity (m*k tests required to exactly detect upto k defectives)
+% k: Multiplicity (m*(k) tests required to exactly detect upto k-1 defectives)
 % pars: Struct with optional parameters
 %   pars.print: Flag to print infos
 %
@@ -30,6 +33,7 @@ function [ M, out ] = SDD_PT( m, k, pars )
 %   out.time: Computational time
 %--------------------------------------------------------------------------
 % 03/30/21, J.B., Initial implementation
+% 05/12/22, J.B., Preparation for release (and require prime pool size)
 
 ctime = tic;
 
@@ -53,6 +57,10 @@ end
 % Check inputs
 if (m+1)<k
     error('Input error: Need k<=m+1 \n');
+end
+% Check inputs
+if isprime(m)==0
+    error('Input error: Need prime number m \n');
 end
 
 % Construction of M

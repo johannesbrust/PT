@@ -46,7 +46,7 @@ if printInfo == 1
     fprintf('\n----------- COMP Algorithm ----------- \n'); % 41 chars    
     fprintf('Problem Size \n');
     fprintf('Tests:                 %i \n',t);
-    fprintf('Patients:              %i \n',n);
+    fprintf('Samples:               %i \n',n);
     fprintf('Input Expct. Positive: %i \n',d);
     
 end
