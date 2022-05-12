@@ -3,46 +3,48 @@
 
 MATLAB implementations of algorithms from the article
 
-"COVID-19 Pooling Matrix Designs", J.J. Brust (2021), IMAGE (TBD)
+"COVID-19 Pooling Matrix Designs", J.J. Brust (2022), IMAGE (TBD)
 
 Content:
   * ALGS/
-    - SDD_PT.m (Shifted-Diagonal-Design (SDD): {Algorithm to construct pooling matrix M})
+    - FGD_PT.m (Finite Geometry Design (FGD): {Sparse algorithm to construct finite affine and projective planes (prime powers)})
+    - SDD_PT.m (Shifted Diagonal Design (SDD): {Algorithm to construct pooling matrix M (prime number pools)})    
     - SCOMP_PT.m (Sequential Combinatorial Orthogonal Matching Pursuit (SCOMP): {Decoding Algorithm})
     - DD_PT.m (Definite Defectives (DD): {Decoding Algorithm}
     - COMP_PT.m (Combinatorial Orthogonal Matching Pursuit (COMP): {Decoding Algorithm})
   * TESTS/
-    - test_Pooling.m (Example pooling test with m=24, k=7 using SDD and COMP)
-    - test_SDD.m (Small test for correctness of SDD)
+    - example_Pooling.m (Example pooling test with m=4, k=4 using FGD and COMP)
+    - example_Large.m (Large test on identifying 100 positives from 100000 samples (matrix about 3 seconds) )
     - test_COMP_PT_1.m (Test of COMP on an example matrix from Wikipedia)
+  * AUXILIARY/
+  * EXTERNAL/
 
 ## Example
 You can run an example test from within the /TESTS folder. On
 the MATLAB command prompt:
 
-`> test_Pooling`
+`> example_Pooling`
 
 ```
------------ SDD Algorithm ----------- 
+----------- FGD Algorithm ----------- 
 Problem Size 
-Pools (m):                     24 
-Multiplicity (k):              7 
-Expected tests (m*k):          168 
+Pools (m):                     4 
+Disjunct (k):                  4 
+Expected tests:                20 
 OUTPUT(S):############## 
-Time (constr):        3.744661e-03 
+Time (constr):        3.536667e-02 
 
 
 ----------- COMP Algorithm ----------- 
 Problem Size 
-Tests:                 168 
-Patients:              576 
-Input Expct. Positive: 5 
+Tests:                 20 
+Samples:               16 
+Input Expct. Positive: 4 
 OUTPUTS:################ 
-Time (search):         5.778742e-03 
-Positive items:        5 
+Time (search):         9.010810e-04 
+Positive items:        4 
 ######################## 
 Identified Indices:    2 
 Identified Indices:    3 
+Identified Indices:    7 
 Identified Indices:    13 
-Identified Indices:    75 
-Identified Indices:    381
